@@ -1,11 +1,18 @@
 ---
 title: "Visualize Data"
-author: "Your Name"
+author: "Juan Ramirez Jr"
+output: github_document
 ---
 
 ## Your Turn 0
 
 Add a setup chunk that loads the tidyverse packages.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, comment = "")
+library(tidyverse)
+```
+
 
 
 ```{r}
@@ -18,7 +25,8 @@ mpg
 Run the code on the slide to make a graph. Pay strict attention to spelling, capitalization, and parentheses!
 
 ```{r}
-
+ggplot(data = mpg) + 
+  geom_point(mapping = aes(x = displ, y = hwy))
 ```
 
 
@@ -28,7 +36,7 @@ Replace this scatterplot with one that draws boxplots. Use the cheatsheet. Try y
 
 ```{r}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = class, y = hwy))
+  geom_boxplot(mapping = aes(x = class, y = hwy))
 ```
 
 
@@ -37,7 +45,8 @@ ggplot(data = mpg) +
 Make a histogram of the `hwy` variable from `mpg`. Hint: do not supply a y variable.
 
 ```{r}
-
+ggplot(data = mpg) +
+  geom_histogram(mapping = aes(x = hwy))
 ```
 
 ## Your Turn 4
@@ -45,7 +54,8 @@ Make a histogram of the `hwy` variable from `mpg`. Hint: do not supply a y varia
 Use the help page for `geom_histogram` to make the bins 2 units wide.
 
 ```{r}
-
+ggplot(data = mpg) +
+  geom_histogram(mapping = aes(x = hwy), binwidth = 2)
 ```
 
 
@@ -55,7 +65,7 @@ Add `color`, `size`, `alpha`, and `shape` aesthetics to your graph. Experiment.
 
 ```{r}
 ggplot(data = mpg) +
-  geom_point(mapping = aes(x = displ, y = hwy))
+  geom_point(mapping = aes(x = displ, y = hwy, color = class))
 ```
 
 ## Help Me
@@ -79,7 +89,12 @@ q + facet_wrap(~ class)
 Make a bar chart `class` colored by `class`. Use the help page for `geom_bar` to choose a "color" aesthetic for class.
 
 ```{r}
-
+ggplot(data = mpg) + 
+  geom_bar(aes(x = class, fill = class)) + 
+  labs(x = "Class of Vehicle", y = "Number of Vehicles") + 
+  guides(fill = FALSE) + 
+  theme_minimal() + 
+  scale_fill_viridis_d()
 ```
 
 ## Quiz
@@ -87,9 +102,10 @@ Make a bar chart `class` colored by `class`. Use the help page for `geom_bar` to
 What will this code do?
 
 ```{r}
-ggplot(mpg) + 
-  geom_point(aes(displ, hwy)) +
-  geom_smooth(aes(displ, hwy))
+ggplot(mpg, aes(displ, hwy)) + 
+  geom_point() +
+  geom_smooth()
+  ggsave("example1.jpg")
 ```
 
 
